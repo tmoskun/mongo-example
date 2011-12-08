@@ -1,0 +1,29 @@
+<br />
+<table id="stories" class="grid_12 alpha omega">
+<% @stories.each_with_index do |story, index| %>
+  <tr>
+    <td>
+    <table id="story_<%= story.id %>" class="story">
+    <tr>
+    <td class="upvote">
+      <% if !current_user %>
+        <a href="<%= sign_in_url %>">Sign in</a>
+      <% elsif !story.voters.include?(current_user.id) %>
+        <%= link_to "^", upvote_story_path(story), :remote => true, :class => "upvote_story", :id => "upvote_#{story.votes}_#{story.id}" -%>
+      <% end %>
+    </td>
+    <td class="num"><%= index + 1 * @page %>. &nbsp;</td>
+      <td><a href="<%= story.url %>"><%= story.title %></a></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><span class="votes"><%= pluralize(story.votes, "vote") %></span> 
+        by <%= story.username %> | <a href="<%= story_url(story) %>"><%= story.comment_count %> comments</a>
+      </td>
+    </tr>
+  </table>
+    </td>
+  </tr>
+<% end %>
+</table>

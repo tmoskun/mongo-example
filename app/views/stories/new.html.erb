@@ -1,0 +1,6 @@
+<h2>Create Article</h2>
+
+<%= semantic_form_for @story do |form| %>
+  <%= render :partial => '/stories/form', :object => form %>
+  <%= form.submit 'Post' %>
+<% end %>
